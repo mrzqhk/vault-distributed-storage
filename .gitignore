@@ -149,3 +149,5 @@ vite.config.ts.timestamp-*
 *.db-shm
 data/
 backend/data/
+storage/
+backend/storage/

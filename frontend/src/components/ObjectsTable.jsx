@@ -55,11 +55,8 @@ export default function ObjectsTable() {
             <Files className="w-4 h-4" />
           </div>
           <div>
-            <h3 className="text-sm font-semibold font-mono tracking-wide text-white flex items-center gap-2">
-              Objects & Storage Files
-              <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-400 border border-slate-700">
-                DEMO PLACEHOLDER
-              </span>
+            <h3 className="text-sm font-semibold font-mono tracking-wide text-white">
+              Objects &amp; Storage Files
             </h3>
             <p className="text-xs text-slate-400">Distributed object records and replication status</p>
           </div>
@@ -69,10 +66,10 @@ export default function ObjectsTable() {
         <button
           disabled
           className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-800/80 border border-slate-700/80 text-slate-400 text-xs font-medium cursor-not-allowed"
-          title="Object upload will be implemented in subsequent phases per API.md §1"
+          title="Use: curl -X POST http://localhost:8000/api/v1/objects -F 'file=@yourfile'"
         >
           <Upload className="w-3.5 h-3.5" />
-          <span>Upload Object (Phase 2)</span>
+          <span>curl POST /api/v1/objects</span>
         </button>
       </div>
 
@@ -134,7 +131,7 @@ export default function ObjectsTable() {
       <div className="mt-3 pt-3 border-t border-slate-800/60 flex items-center justify-between text-[11px] text-slate-500">
         <span className="flex items-center gap-1.5">
           <AlertCircle className="w-3.5 h-3.5 text-slate-400" />
-          Object CRUD, multi-node streaming writes, and read-repair are planned for future phases.
+          Object CRUD available via <code className="text-cyan-600">POST /api/v1/objects</code>. Run curl or use any HTTP client.
         </span>
       </div>
     </div>

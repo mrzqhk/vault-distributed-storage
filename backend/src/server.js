@@ -2,6 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import { config } from './config/env.js';
 import { initDatabase, closeDatabase } from './config/db.js';
+import { clusterService } from './services/cluster.service.js';
 import apiRouter from './routes/index.js';
 import healthRouter from './routes/health.routes.js';
 import { errorHandler, notFoundHandler } from './middleware/errorHandler.js';
@@ -15,8 +16,9 @@ app.use(cors({
   credentials: true
 }));
 
-// Parse JSON bodies
-app.use(express.json());
+// Parse JSON and raw binary / multipart bodies (up to 200MB)
+app.use(express.json({ limit: '50mb' }));
+app.use(express.raw({ type: () => true, limit: '200mb' }));
 
 // Request logger
 app.use((req, res, next) => {
@@ -24,7 +26,8 @@ app.use((req, res, next) => {
   next();
 });
 
-// API routes
+// API routes (support both /api/v1 and /api)
+app.use('/api/v1', apiRouter);
 app.use('/api', apiRouter);
 
 // Fallback convenience root health endpoint
@@ -44,10 +47,23 @@ export function startServer() {
     // Initialize SQLite database
     initDatabase();
 
+    // Sync configured storage nodes into SQLite
+    clusterService.syncStorageNodes();
+
     server = app.listen(config.port, () => {
       logger.info(`Vault Coordinator Backend listening on port ${config.port}`);
       logger.info(`Health check: http://localhost:${config.port}/api/health`);
-      logger.info(`Environment: ${config.nodeEnv}`);
+      logger.info(`Public API:   http://localhost:${config.port}/api/v1/objects`);
+      logger.info(`Environment:  ${config.nodeEnv}`);
+    });
+
+    server.on('error', (err) => {
+      if (err.code === 'EADDRINUSE') {
+        logger.error(`Port ${config.port} is already in use by another process. Stop the previous process before starting.`);
+      } else {
+        logger.error('Coordinator server error:', err);
+      }
+      process.exit(1);
     });
 
     return server;

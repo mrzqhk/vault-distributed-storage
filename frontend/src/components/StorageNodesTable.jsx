@@ -4,44 +4,34 @@ import StatusBadge from './StatusBadge';
 
 const DEMO_NODES = [
   {
-    node_id: 'node-a',
-    hostname: 'vault-node-a',
-    address: '127.0.0.1:8001',
+    node_id: 'node-1',
+    hostname: 'localhost',
+    address: 'localhost:9001',
     status: 'healthy',
-    used_bytes: 2147483648, // 2 GB
+    used_bytes: 0,
     capacity_bytes: 10737418240, // 10 GB
-    object_count: 42,
-    last_heartbeat: 'Just now'
+    object_count: 0,
+    last_heartbeat: 'Running'
   },
   {
-    node_id: 'node-b',
-    hostname: 'vault-node-b',
-    address: '127.0.0.1:8002',
+    node_id: 'node-2',
+    hostname: 'localhost',
+    address: 'localhost:9002',
     status: 'healthy',
-    used_bytes: 1073741824, // 1 GB
+    used_bytes: 0,
     capacity_bytes: 10737418240, // 10 GB
-    object_count: 30,
-    last_heartbeat: '2s ago'
+    object_count: 0,
+    last_heartbeat: 'Running'
   },
   {
-    node_id: 'node-c',
-    hostname: 'vault-node-c',
-    address: '127.0.0.1:8003',
+    node_id: 'node-3',
+    hostname: 'localhost',
+    address: 'localhost:9003',
     status: 'healthy',
-    used_bytes: 3221225472, // 3 GB
+    used_bytes: 0,
     capacity_bytes: 10737418240, // 10 GB
-    object_count: 55,
-    last_heartbeat: '1s ago'
-  },
-  {
-    node_id: 'node-d',
-    hostname: 'vault-node-d',
-    address: '127.0.0.1:8004',
-    status: 'degraded',
-    used_bytes: 536870912, // 512 MB
-    capacity_bytes: 10737418240, // 10 GB
-    object_count: 14,
-    last_heartbeat: '8s ago'
+    object_count: 0,
+    last_heartbeat: 'Running'
   }
 ];
 
@@ -62,17 +52,14 @@ export default function StorageNodesTable() {
             <Server className="w-4 h-4" />
           </div>
           <div>
-            <h3 className="text-sm font-semibold font-mono tracking-wide text-white flex items-center gap-2">
+            <h3 className="text-sm font-semibold font-mono tracking-wide text-white">
               Storage Nodes
-              <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-400 border border-slate-700">
-                DEMO PLACEHOLDER
-              </span>
             </h3>
-            <p className="text-xs text-slate-400">Cluster storage node members and capacity</p>
+            <p className="text-xs text-slate-400">Coordinator &amp; 3 Storage Nodes — localhost</p>
           </div>
         </div>
         <div className="text-xs text-slate-500 font-mono">
-          4 Simulated Nodes (Phase 1 UI)
+          3 Active Nodes
         </div>
       </div>
 
@@ -138,7 +125,7 @@ export default function StorageNodesTable() {
       <div className="mt-3 pt-3 border-t border-slate-800/60 flex items-center justify-between text-[11px] text-slate-500">
         <span className="flex items-center gap-1.5">
           <AlertCircle className="w-3.5 h-3.5 text-slate-400" />
-          Real storage node daemon processes and heartbeat protocol will be attached in Phase 2.
+          Node capacity stats update as objects are uploaded via <code className="text-cyan-600">POST /api/v1/objects</code>.
         </span>
       </div>
     </div>

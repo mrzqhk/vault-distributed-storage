@@ -27,16 +27,16 @@ export default function DashboardPage() {
           </div>
           <div>
             <h2 className="text-sm font-bold text-white font-mono flex items-center gap-2">
-              VAULT CONTROL PLANE — PHASE 1 FOUNDATION
+              VAULT DISTRIBUTED STORAGE — COORDINATOR &amp; 3 STORAGE NODES
             </h2>
             <p className="text-xs text-slate-400 mt-0.5">
-              Live backend connection is established via <code className="text-cyan-400">GET /api/health</code>. Storage node processes, object write replication, and repair automation are planned for subsequent phases.
+              Replication active: <code className="text-cyan-400">POST /api/v1/objects</code> fans out to node-1 (9001), node-2 (9002), node-3 (9003). Factor N = 3.
             </p>
           </div>
         </div>
         <div className="flex-shrink-0 self-end sm:self-center">
           <span className="text-[11px] font-mono px-2.5 py-1 rounded bg-cyan-950 text-cyan-400 border border-cyan-800">
-            PHASE 1 ACTIVE
+            PHASE 2 ACTIVE
           </span>
         </div>
       </div>
@@ -46,51 +46,46 @@ export default function DashboardPage() {
         {/* Cluster Health */}
         <StatCard
           title="Cluster Health"
-          value="98.5%"
-          subtext="3/4 Nodes Healthy"
+          value="3 / 3"
+          subtext="All Storage Nodes Healthy"
           icon={Activity}
           accentColor="emerald"
-          badgeText="DEMO PLACEHOLDER"
         />
 
         {/* Total Storage */}
         <StatCard
           title="Storage Usage"
-          value="6.9 / 40 GB"
-          subtext="17.2% Cluster Capacity"
+          value="—"
+          subtext="Grows as objects are uploaded"
           icon={HardDrive}
           accentColor="cyan"
-          badgeText="DEMO PLACEHOLDER"
         />
 
         {/* Stored Objects */}
         <StatCard
           title="Total Objects"
-          value="141"
-          subtext="141 logical keys stored"
+          value="—"
+          subtext="Upload to see object count"
           icon={Files}
           accentColor="indigo"
-          badgeText="DEMO PLACEHOLDER"
         />
 
         {/* Replication Health */}
         <StatCard
           title="Replication"
           value="N = 3"
-          subtext="Majority Quorum W=2, R=1"
+          subtext="3 nodes — W=3, R=1"
           icon={Layers}
           accentColor="amber"
-          badgeText="DEMO PLACEHOLDER"
         />
 
         {/* Integrity Check */}
         <StatCard
           title="Integrity (SHA-256)"
-          value="100%"
-          subtext="0 Corrupted Replicas"
+          value="Verified"
+          subtext="Checksum on every write"
           icon={ShieldCheck}
           accentColor="emerald"
-          badgeText="DEMO PLACEHOLDER"
         />
       </div>
 

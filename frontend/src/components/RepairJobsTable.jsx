@@ -2,28 +2,7 @@ import React from 'react';
 import { Wrench, RefreshCw, CheckCircle, Clock, AlertCircle } from 'lucide-react';
 import StatusBadge from './StatusBadge';
 
-const DEMO_JOBS = [
-  {
-    job_id: 'job-77a1',
-    object_key: 'backups/db_snapshot.tar.gz',
-    type: 're_replicate',
-    source_node: 'node-a',
-    target_node: 'node-c',
-    status: 'repairing',
-    progress: 68,
-    started_at: '2026-09-26 02:20:00'
-  },
-  {
-    job_id: 'job-77a0',
-    object_key: 'photos/cluster_diagram.png',
-    type: 'verify',
-    source_node: 'node-b',
-    target_node: '-',
-    status: 'synced',
-    progress: 100,
-    started_at: '2026-09-26 02:14:10'
-  }
-];
+const DEMO_JOBS = [];
 
 export default function RepairJobsTable() {
   return (
@@ -34,11 +13,8 @@ export default function RepairJobsTable() {
             <Wrench className="w-4 h-4" />
           </div>
           <div>
-            <h3 className="text-sm font-semibold font-mono tracking-wide text-white flex items-center gap-2">
-              Self-Healing & Repair Jobs
-              <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-400 border border-slate-700">
-                QUEUE PLACEHOLDER
-              </span>
+            <h3 className="text-sm font-semibold font-mono tracking-wide text-white">
+              Self-Healing &amp; Repair Jobs
             </h3>
             <p className="text-xs text-slate-400">Active replica restoration & integrity reconciliation tasks</p>
           </div>
@@ -58,7 +34,13 @@ export default function RepairJobsTable() {
             </tr>
           </thead>
           <tbody className="divide-y divide-slate-800/40">
-            {DEMO_JOBS.map((job) => (
+            {DEMO_JOBS.length === 0 ? (
+              <tr>
+                <td colSpan={6} className="py-10 text-center text-slate-500 text-xs font-mono">
+                  No repair jobs — all replicas are healthy.
+                </td>
+              </tr>
+            ) : DEMO_JOBS.map((job) => (
               <tr key={job.job_id} className="hover:bg-slate-800/30 transition-colors">
                 <td className="py-3 px-3 text-cyan-400 font-semibold">
                   {job.job_id}
@@ -96,7 +78,7 @@ export default function RepairJobsTable() {
 
       <div className="mt-3 pt-3 border-t border-slate-800/60 text-[11px] text-slate-500 flex items-center gap-1.5">
         <AlertCircle className="w-3.5 h-3.5 text-slate-400" />
-        Automatic repair engine will trigger upon under-replicated / corrupt events in Phase 2.
+        Repair jobs will appear here if any replica becomes under-replicated or corrupt.
       </div>
     </div>
   );

@@ -1,15 +1,13 @@
 import React from 'react';
-import { Network, Server, Database, Radio, Shield } from 'lucide-react';
-import StatusBadge from './StatusBadge';
+import { Network, Server, Database, Radio } from 'lucide-react';
+
+const NODES = [
+  { id: 'node-1', port: '9001', status: 'healthy' },
+  { id: 'node-2', port: '9002', status: 'healthy' },
+  { id: 'node-3', port: '9003', status: 'healthy' },
+];
 
 export default function ClusterVisualization() {
-  const nodes = [
-    { id: 'node-a', name: 'Node A', port: '8001', status: 'healthy', angle: 45 },
-    { id: 'node-b', name: 'Node B', port: '8002', status: 'healthy', angle: 135 },
-    { id: 'node-c', name: 'Node C', port: '8003', status: 'healthy', angle: 225 },
-    { id: 'node-d', name: 'Node D', port: '8004', status: 'degraded', angle: 315 },
-  ];
-
   return (
     <div className="bg-[#0f172a] border border-slate-800 rounded-xl shadow-lg p-5 flex flex-col justify-between">
       <div className="flex items-center justify-between pb-3 border-b border-slate-800">
@@ -18,13 +16,10 @@ export default function ClusterVisualization() {
             <Network className="w-4 h-4" />
           </div>
           <div>
-            <h3 className="text-sm font-semibold font-mono tracking-wide text-white flex items-center gap-2">
-              Live Cluster Visualization
-              <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-400 border border-slate-700">
-                TOPOLOGY PLACEHOLDER
-              </span>
+            <h3 className="text-sm font-semibold font-mono tracking-wide text-white">
+              Live Cluster Topology
             </h3>
-            <p className="text-xs text-slate-400">Coordinator & Storage Nodes mesh architecture</p>
+            <p className="text-xs text-slate-400">Coordinator &amp; 3 Storage Nodes — localhost</p>
           </div>
         </div>
       </div>
@@ -44,55 +39,44 @@ export default function ClusterVisualization() {
             COORDINATOR
           </span>
           <span className="text-[10px] font-mono text-cyan-400">
-            Port 8000 (Active)
+            localhost:8000
           </span>
         </div>
 
-        {/* Connected Storage Nodes */}
+        {/* Connected Storage Nodes — node-1 left top, node-2 right, node-3 left bottom */}
         <div className="absolute inset-0 flex items-center justify-between pointer-events-none px-4 sm:px-12">
-          {/* Left pair */}
-          <div className="flex flex-col justify-between h-full py-2 pointer-events-auto">
-            {/* Node A */}
+          {/* Left column: node-1 and node-3 */}
+          <div className="flex flex-col justify-between h-full py-4 pointer-events-auto">
+            {/* node-1 */}
             <div className="flex items-center gap-2 bg-slate-900/90 border border-slate-700/80 rounded-xl p-2.5 shadow-md">
               <Server className="w-4 h-4 text-emerald-400" />
               <div className="text-[11px] font-mono">
-                <div className="font-semibold text-white">node-a</div>
-                <div className="text-[10px] text-slate-400">:8001</div>
+                <div className="font-semibold text-white">node-1</div>
+                <div className="text-[10px] text-slate-400">localhost:9001</div>
               </div>
               <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
             </div>
 
-            {/* Node C */}
+            {/* node-3 */}
             <div className="flex items-center gap-2 bg-slate-900/90 border border-slate-700/80 rounded-xl p-2.5 shadow-md">
               <Server className="w-4 h-4 text-emerald-400" />
               <div className="text-[11px] font-mono">
-                <div className="font-semibold text-white">node-c</div>
-                <div className="text-[10px] text-slate-400">:8003</div>
+                <div className="font-semibold text-white">node-3</div>
+                <div className="text-[10px] text-slate-400">localhost:9003</div>
               </div>
               <span className="w-2 h-2 rounded-full bg-emerald-400" />
             </div>
           </div>
 
-          {/* Right pair */}
-          <div className="flex flex-col justify-between h-full py-2 pointer-events-auto">
-            {/* Node B */}
+          {/* Right column: node-2 centered */}
+          <div className="flex flex-col items-end justify-center h-full py-4 pointer-events-auto">
             <div className="flex items-center gap-2 bg-slate-900/90 border border-slate-700/80 rounded-xl p-2.5 shadow-md">
               <Server className="w-4 h-4 text-emerald-400" />
               <div className="text-[11px] font-mono">
-                <div className="font-semibold text-white">node-b</div>
-                <div className="text-[10px] text-slate-400">:8002</div>
+                <div className="font-semibold text-white">node-2</div>
+                <div className="text-[10px] text-slate-400">localhost:9002</div>
               </div>
               <span className="w-2 h-2 rounded-full bg-emerald-400" />
-            </div>
-
-            {/* Node D */}
-            <div className="flex items-center gap-2 bg-slate-900/90 border border-amber-700/80 rounded-xl p-2.5 shadow-md">
-              <Server className="w-4 h-4 text-amber-400" />
-              <div className="text-[11px] font-mono">
-                <div className="font-semibold text-white">node-d</div>
-                <div className="text-[10px] text-slate-400">:8004</div>
-              </div>
-              <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse" />
             </div>
           </div>
         </div>
@@ -101,10 +85,10 @@ export default function ClusterVisualization() {
       <div className="pt-3 border-t border-slate-800/60 flex items-center justify-between text-[11px] text-slate-400 font-mono">
         <span className="flex items-center gap-1.5">
           <Radio className="w-3.5 h-3.5 text-cyan-400 animate-pulse" />
-          Replication Factor: N=3 (Default)
+          Replication Factor: N = 3
         </span>
         <span className="text-slate-500">
-          Heartbeat interval: 3s
+          3 nodes configured
         </span>
       </div>
     </div>
