@@ -1,0 +1,26 @@
+{
+  "name": "vault-backend",
+  "version": "0.1.0",
+  "description": "Vault Fault-Tolerant Distributed Storage - Coordinator & Metadata Backend",
+  "type": "module",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js",
+    "test": "node --test"
+  },
+  "keywords": [
+    "distributed-storage",
+    "vault",
+    "coordinator",
+    "metadata"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "better-sqlite3": "^13.0.3",
+    "cors": "^2.8.6",
+    "dotenv": "^18.0.4",
+    "express": "^5.2.1"
+  }
+}
