@@ -4,24 +4,68 @@
 
 @layer base {
   body {
-    font-family: 'Inter', system-ui, -apple-system, sans-serif;
-    background-color: #090d16;
-    color: #f1f5f9;
+    font-family: 'Inter', 'DM Sans', -apple-system, sans-serif;
+    background-color: #090909;
+    color: #F1F0EA;
+    letter-spacing: -0.01em;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Space Grotesk', sans-serif;
+    letter-spacing: -0.03em;
   }
 }
 
 /* Custom subtle scrollbar */
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 5px;
+  height: 5px;
 }
 ::-webkit-scrollbar-track {
-  background: #0f172a;
+  background: #090909;
 }
 ::-webkit-scrollbar-thumb {
-  background: #334155;
-  border-radius: 3px;
+  background: #222222;
+  border-radius: 2px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #475569;
+  background: #333333;
+}
+
+/* Signal pulse along bus lines */
+@keyframes signalPulse {
+  0% {
+    stroke-dashoffset: 24;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+.animate-topology-signal {
+  stroke-dasharray: 6 18;
+  animation: signalPulse 1.8s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-topology-signal {
+    animation: none;
+    stroke-dasharray: none;
+  }
+}
+
+/* Subtle fade in upward */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeInUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }

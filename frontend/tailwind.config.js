@@ -9,18 +9,29 @@ export default {
     extend: {
       colors: {
         vault: {
-          bg: '#090d16',
-          card: '#0f172a',
-          cardMuted: '#1e293b',
-          border: '#1e293b',
-          borderLight: '#334155',
-          accent: '#06b6d4', // cyan-500
-          accentHover: '#0891b2',
+          bg: '#090909',
+          surface: '#0F0F0F',
+          card: '#141414',
+          border: '#1F1F1F',
+          borderLight: '#2C2C2C',
+          text: '#F1F0EA',
+          muted: '#858585',
+          dim: '#4A4A4A',
+          lime: '#B7FF2A',
+          limeHover: '#CBFF4D',
+          limeDim: 'rgba(183, 255, 42, 0.08)',
+          limeBorder: 'rgba(183, 255, 42, 0.25)',
         }
       },
       fontFamily: {
-        mono: ['JetBrains Mono', 'Fira Code', 'Courier New', 'monospace'],
-        sans: ['Inter', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+        display: ['"Space Grotesk"', 'sans-serif'],
+        sans: ['Inter', '"DM Sans"', 'sans-serif'],
+        mono: ['"JetBrains Mono"', 'monospace'],
+      },
+      borderRadius: {
+        xs: '2px',
+        sm: '4px',
+        md: '6px',
       }
     },
   },

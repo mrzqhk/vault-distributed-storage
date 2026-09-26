@@ -1,45 +1,28 @@
 import React from 'react';
 
 const VARIANTS = {
-  healthy: 'bg-emerald-950/70 text-emerald-400 border-emerald-800/80',
-  active: 'bg-emerald-950/70 text-emerald-400 border-emerald-800/80',
-  synced: 'bg-emerald-950/70 text-emerald-400 border-emerald-800/80',
-  warning: 'bg-amber-950/70 text-amber-400 border-amber-800/80',
-  degraded: 'bg-amber-950/70 text-amber-400 border-amber-800/80',
-  repairing: 'bg-cyan-950/70 text-cyan-400 border-cyan-800/80',
-  danger: 'bg-rose-950/70 text-rose-400 border-rose-800/80',
-  offline: 'bg-rose-950/70 text-rose-400 border-rose-800/80',
-  corrupt: 'bg-rose-950/70 text-rose-400 border-rose-800/80',
-  neutral: 'bg-slate-800/80 text-slate-300 border-slate-700/80',
-  placeholder: 'bg-indigo-950/50 text-indigo-300 border-indigo-800/60'
-};
-
-const DOT_COLORS = {
-  healthy: 'bg-emerald-400',
-  active: 'bg-emerald-400',
-  synced: 'bg-emerald-400',
-  warning: 'bg-amber-400 animate-pulse',
-  degraded: 'bg-amber-400 animate-pulse',
-  repairing: 'bg-cyan-400 animate-spin',
-  danger: 'bg-rose-400',
-  offline: 'bg-rose-400',
-  corrupt: 'bg-rose-400',
-  neutral: 'bg-slate-400',
-  placeholder: 'bg-indigo-400'
+  healthy: 'bg-[#B7FF2A]/10 text-[#B7FF2A] border-[#B7FF2A]/30',
+  active: 'bg-[#B7FF2A]/10 text-[#B7FF2A] border-[#B7FF2A]/30',
+  synced: 'bg-[#B7FF2A]/10 text-[#B7FF2A] border-[#B7FF2A]/30',
+  online: 'bg-[#B7FF2A]/10 text-[#B7FF2A] border-[#B7FF2A]/30',
+  warning: 'bg-amber-950/40 text-amber-300 border-amber-800/60',
+  degraded: 'bg-amber-950/40 text-amber-300 border-amber-800/60',
+  offline: 'bg-[#181818] text-[#777777] border-[#2A2A2A]',
+  danger: 'bg-rose-950/40 text-rose-300 border-rose-800/60',
+  neutral: 'bg-[#141414] text-[#888888] border-[#222222]',
 };
 
 export default function StatusBadge({ status = 'neutral', label, showDot = true, className = '' }) {
-  const normalizedKey = String(status).toLowerCase();
-  const badgeStyle = VARIANTS[normalizedKey] || VARIANTS.neutral;
-  const dotColor = DOT_COLORS[normalizedKey] || DOT_COLORS.neutral;
-  const displayText = label || status.toUpperCase();
+  const key = String(status).toLowerCase();
+  const style = VARIANTS[key] || VARIANTS.neutral;
+  const isLime = ['healthy', 'active', 'synced', 'online'].includes(key);
 
   return (
-    <span className={`inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-medium border ${badgeStyle} ${className}`}>
+    <span className={`inline-flex items-center gap-1.5 px-2 py-0.5 rounded-xs font-mono text-[10px] uppercase tracking-wider border ${style} ${className}`}>
       {showDot && (
-        <span className={`w-1.5 h-1.5 rounded-full ${dotColor}`} />
+        <span className={`w-1.5 h-1.5 rounded-full ${isLime ? 'bg-[#B7FF2A]' : key === 'degraded' ? 'bg-amber-400' : 'bg-[#555]'}`} />
       )}
-      <span>{displayText}</span>
+      <span>{label || status.toUpperCase()}</span>
     </span>
   );
 }
